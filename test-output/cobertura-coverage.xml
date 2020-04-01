@@ -1,0 +1,563 @@
+<?xml version="1.0" ?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+<coverage lines-valid="175" lines-covered="148" line-rate="0.8456999999999999" branches-valid="32" branches-covered="23" branch-rate="0.7188" timestamp="1585576723097" complexity="0" version="0.1">
+  <sources>
+    <source>/home/node</source>
+  </sources>
+  <packages>
+    <package name="node" line-rate="0" branch-rate="1">
+      <classes>
+        <class name="index.js" filename="index.js" line-rate="0" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="0" signature="()V">
+              <lines>
+                <line number="4" hits="0"/>
+              </lines>
+            </method>
+            <method name="(anonymous_1)" hits="0" signature="()V">
+              <lines>
+                <line number="5" hits="0"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="0" branch="false"/>
+            <line number="3" hits="0" branch="false"/>
+            <line number="4" hits="0" branch="false"/>
+            <line number="6" hits="0" branch="false"/>
+            <line number="7" hits="0" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="node.server" line-rate="0.7778" branch-rate="0.5">
+      <classes>
+        <class name="index.js" filename="server/index.js" line-rate="0.7778" branch-rate="0.5">
+          <methods>
+            <method name="createServer" hits="10" signature="()V">
+              <lines>
+                <line number="5" hits="10"/>
+              </lines>
+            </method>
+            <method name="(anonymous_1)" hits="0" signature="()V">
+              <lines>
+                <line number="27" hits="0"/>
+              </lines>
+            </method>
+            <method name="(anonymous_2)" hits="0" signature="()V">
+              <lines>
+                <line number="32" hits="0"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+            <line number="2" hits="3" branch="false"/>
+            <line number="3" hits="3" branch="false"/>
+            <line number="7" hits="10" branch="false"/>
+            <line number="19" hits="10" branch="false"/>
+            <line number="20" hits="10" branch="false"/>
+            <line number="22" hits="10" branch="true" condition-coverage="50% (1/2)"/>
+            <line number="23" hits="10" branch="false"/>
+            <line number="24" hits="10" branch="false"/>
+            <line number="27" hits="10" branch="false"/>
+            <line number="28" hits="0" branch="false"/>
+            <line number="29" hits="0" branch="false"/>
+            <line number="32" hits="10" branch="false"/>
+            <line number="33" hits="0" branch="false"/>
+            <line number="34" hits="0" branch="false"/>
+            <line number="37" hits="10" branch="false"/>
+            <line number="38" hits="10" branch="false"/>
+            <line number="41" hits="3" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="node.server.config" line-rate="0.9523999999999999" branch-rate="0.6">
+      <classes>
+        <class name="database-config.js" filename="server/config/database-config.js" line-rate="1" branch-rate="0.5">
+          <methods>
+          </methods>
+          <lines>
+            <line number="1" hits="13" branch="false"/>
+            <line number="10" hits="13" branch="false"/>
+            <line number="16" hits="13" branch="false"/>
+          </lines>
+        </class>
+        <class name="index.js" filename="server/config/index.js" line-rate="1" branch-rate="1">
+          <methods>
+          </methods>
+          <lines>
+            <line number="1" hits="13" branch="false"/>
+            <line number="2" hits="13" branch="false"/>
+            <line number="3" hits="13" branch="false"/>
+            <line number="5" hits="13" branch="false"/>
+            <line number="10" hits="13" branch="false"/>
+            <line number="15" hits="13" branch="false"/>
+            <line number="19" hits="13" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="20" hits="1" branch="false"/>
+            <line number="23" hits="12" branch="false"/>
+            <line number="31" hits="12" branch="false"/>
+          </lines>
+        </class>
+        <class name="mq-config.js" filename="server/config/mq-config.js" line-rate="0.875" branch-rate="0.5">
+          <methods>
+          </methods>
+          <lines>
+            <line number="1" hits="12" branch="false"/>
+            <line number="3" hits="12" branch="false"/>
+            <line number="16" hits="12" branch="false"/>
+            <line number="28" hits="12" branch="false"/>
+            <line number="33" hits="12" branch="true" condition-coverage="50% (1/2)"/>
+            <line number="34" hits="0" branch="false"/>
+            <line number="37" hits="12" branch="false"/>
+            <line number="39" hits="12" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="node.server.models" line-rate="0.9615" branch-rate="0.6667000000000001">
+      <classes>
+        <class name="index.js" filename="server/models/index.js" line-rate="0.95" branch-rate="0.6667000000000001">
+          <methods>
+            <method name="(anonymous_0)" hits="18" signature="()V">
+              <lines>
+                <line number="20" hits="18"/>
+              </lines>
+            </method>
+            <method name="(anonymous_1)" hits="6" signature="()V">
+              <lines>
+                <line number="23" hits="6"/>
+              </lines>
+            </method>
+            <method name="(anonymous_2)" hits="6" signature="()V">
+              <lines>
+                <line number="28" hits="6"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="3" hits="6" branch="false"/>
+            <line number="4" hits="6" branch="false"/>
+            <line number="5" hits="6" branch="false"/>
+            <line number="6" hits="6" branch="false"/>
+            <line number="7" hits="6" branch="true" condition-coverage="50% (1/2)"/>
+            <line number="8" hits="6" branch="false"/>
+            <line number="9" hits="6" branch="false"/>
+            <line number="12" hits="6" branch="true" condition-coverage="50% (1/2)"/>
+            <line number="13" hits="0" branch="false"/>
+            <line number="15" hits="6" branch="false"/>
+            <line number="18" hits="6" branch="false"/>
+            <line number="21" hits="18" branch="true" condition-coverage="100% (3/3)"/>
+            <line number="24" hits="6" branch="false"/>
+            <line number="25" hits="6" branch="false"/>
+            <line number="28" hits="6" branch="false"/>
+            <line number="29" hits="6" branch="true" condition-coverage="50% (1/2)"/>
+            <line number="30" hits="6" branch="false"/>
+            <line number="34" hits="6" branch="false"/>
+            <line number="35" hits="6" branch="false"/>
+            <line number="37" hits="6" branch="false"/>
+          </lines>
+        </class>
+        <class name="plan.js" filename="server/models/plan.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="6" signature="()V">
+              <lines>
+                <line number="2" hits="6"/>
+              </lines>
+            </method>
+            <method name="(anonymous_1)" hits="6" signature="()V">
+              <lines>
+                <line number="14" hits="6"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="2" hits="7" branch="false"/>
+            <line number="3" hits="6" branch="false"/>
+            <line number="7" hits="6" branch="false"/>
+            <line number="12" hits="6" branch="false"/>
+            <line number="14" hits="6" branch="false"/>
+            <line number="18" hits="6" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="node.server.plugins" line-rate="1" branch-rate="1">
+      <classes>
+        <class name="error-pages.js" filename="server/plugins/error-pages.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="10" signature="()V">
+              <lines>
+                <line number="6" hits="10"/>
+              </lines>
+            </method>
+            <method name="(anonymous_1)" hits="10" signature="()V">
+              <lines>
+                <line number="7" hits="10"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+            <line number="3" hits="3" branch="false"/>
+            <line number="7" hits="10" branch="false"/>
+            <line number="8" hits="10" branch="true" condition-coverage="100% (2/2)"/>
+          </lines>
+        </class>
+        <class name="logging.js" filename="server/plugins/logging.js" line-rate="1" branch-rate="1">
+          <methods>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+          </lines>
+        </class>
+        <class name="process-error-response.js" filename="server/plugins/process-error-response.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="processErrorResponse" hits="3" signature="()V">
+              <lines>
+                <line number="2" hits="3"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="3" hits="3" branch="false"/>
+            <line number="4" hits="3" branch="false"/>
+            <line number="5" hits="3" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="6" hits="1" branch="false"/>
+            <line number="12" hits="3" branch="false"/>
+            <line number="14" hits="3" branch="false"/>
+          </lines>
+        </class>
+        <class name="router.js" filename="server/plugins/router.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="10" signature="()V">
+              <lines>
+                <line number="11" hits="10"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+            <line number="8" hits="3" branch="false"/>
+            <line number="12" hits="10" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="node.server.repository" line-rate="1" branch-rate="1">
+      <classes>
+        <class name="plan-repository.js" filename="server/repository/plan-repository.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="2" signature="()V">
+              <lines>
+                <line number="4" hits="2"/>
+              </lines>
+            </method>
+            <method name="(anonymous_1)" hits="1" signature="()V">
+              <lines>
+                <line number="11" hits="1"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="5" branch="false"/>
+            <line number="3" hits="5" branch="false"/>
+            <line number="5" hits="2" branch="false"/>
+            <line number="12" hits="1" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="node.server.routes" line-rate="1" branch-rate="1">
+      <classes>
+        <class name="error.js" filename="server/routes/error.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="1" signature="()V">
+              <lines>
+                <line number="5" hits="1"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+            <line number="6" hits="1" branch="false"/>
+          </lines>
+        </class>
+        <class name="healthy.js" filename="server/routes/healthy.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="4" signature="()V">
+              <lines>
+                <line number="7" hits="4"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+            <line number="3" hits="3" branch="false"/>
+            <line number="8" hits="4" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="9" hits="2" branch="false"/>
+            <line number="11" hits="2" branch="false"/>
+          </lines>
+        </class>
+        <class name="healthz.js" filename="server/routes/healthz.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="1" signature="()V">
+              <lines>
+                <line number="5" hits="1"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+            <line number="6" hits="1" branch="false"/>
+          </lines>
+        </class>
+        <class name="submit.js" filename="server/routes/submit.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="1" signature="()V">
+              <lines>
+                <line number="10" hits="1"/>
+              </lines>
+            </method>
+            <method name="(anonymous_1)" hits="1" signature="()V">
+              <lines>
+                <line number="15" hits="1"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+            <line number="2" hits="3" branch="false"/>
+            <line number="4" hits="3" branch="false"/>
+            <line number="11" hits="1" branch="false"/>
+            <line number="12" hits="1" branch="false"/>
+            <line number="16" hits="1" branch="false"/>
+            <line number="17" hits="1" branch="false"/>
+            <line number="18" hits="1" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="node.server.schema" line-rate="1" branch-rate="1">
+      <classes>
+        <class name="plan.js" filename="server/schema/plan.js" line-rate="1" branch-rate="1">
+          <methods>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+            <line number="3" hits="3" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="node.server.services" line-rate="0.6897" branch-rate="0.75">
+      <classes>
+        <class name="database-service.js" filename="server/services/database-service.js" line-rate="0.2857" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="0" signature="()V">
+              <lines>
+                <line number="4" hits="0"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="3" branch="false"/>
+            <line number="3" hits="3" branch="false"/>
+            <line number="5" hits="0" branch="false"/>
+            <line number="6" hits="0" branch="false"/>
+            <line number="7" hits="0" branch="false"/>
+            <line number="9" hits="0" branch="false"/>
+            <line number="10" hits="0" branch="false"/>
+          </lines>
+        </class>
+        <class name="message-service.js" filename="server/services/message-service.js" line-rate="0.6364" branch-rate="0.5">
+          <methods>
+            <method name="createQueuesIfRequired" hits="2" signature="()V">
+              <lines>
+                <line number="7" hits="2"/>
+              </lines>
+            </method>
+            <method name="publishPlan" hits="0" signature="()V">
+              <lines>
+                <line number="13" hits="0"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="5" branch="false"/>
+            <line number="2" hits="5" branch="false"/>
+            <line number="3" hits="5" branch="false"/>
+            <line number="5" hits="5" branch="false"/>
+            <line number="8" hits="2" branch="true" condition-coverage="50% (1/2)"/>
+            <line number="9" hits="2" branch="false"/>
+            <line number="14" hits="0" branch="false"/>
+            <line number="15" hits="0" branch="false"/>
+            <line number="19" hits="0" branch="false"/>
+            <line number="20" hits="0" branch="false"/>
+            <line number="24" hits="5" branch="false"/>
+          </lines>
+        </class>
+        <class name="plan-service.js" filename="server/services/plan-service.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="4" signature="()V">
+              <lines>
+                <line number="5" hits="4"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="6" branch="false"/>
+            <line number="2" hits="6" branch="false"/>
+            <line number="4" hits="6" branch="false"/>
+            <line number="6" hits="4" branch="false"/>
+            <line number="7" hits="4" branch="true" condition-coverage="100% (2/2)"/>
+            <line number="8" hits="1" branch="false"/>
+            <line number="9" hits="1" branch="false"/>
+            <line number="12" hits="3" branch="false"/>
+            <line number="13" hits="3" branch="false"/>
+            <line number="15" hits="3" branch="false"/>
+            <line number="17" hits="3" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="node.server.services.messaging" line-rate="0.8205" branch-rate="1">
+      <classes>
+        <class name="create-queue.js" filename="server/services/messaging/create-queue.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="createQueue" hits="4" signature="()V">
+              <lines>
+                <line number="3" hits="4"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="7" branch="false"/>
+            <line number="4" hits="4" branch="false"/>
+            <line number="5" hits="4" branch="false"/>
+            <line number="13" hits="4" branch="false"/>
+            <line number="16" hits="7" branch="false"/>
+          </lines>
+        </class>
+        <class name="message-consumer.js" filename="server/services/messaging/message-consumer.js" line-rate="0.8824" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="2" signature="()V">
+              <lines>
+                <line number="5" hits="2"/>
+              </lines>
+            </method>
+            <method name="(anonymous_1)" hits="2" signature="()V">
+              <lines>
+                <line number="10" hits="2"/>
+              </lines>
+            </method>
+            <method name="(anonymous_2)" hits="2" signature="()V">
+              <lines>
+                <line number="18" hits="2"/>
+              </lines>
+            </method>
+            <method name="(anonymous_3)" hits="0" signature="()V">
+              <lines>
+                <line number="20" hits="0"/>
+              </lines>
+            </method>
+            <method name="(anonymous_4)" hits="1" signature="()V">
+              <lines>
+                <line number="24" hits="1"/>
+              </lines>
+            </method>
+            <method name="(anonymous_5)" hits="0" signature="()V">
+              <lines>
+                <line number="28" hits="0"/>
+              </lines>
+            </method>
+            <method name="(anonymous_6)" hits="1" signature="()V">
+              <lines>
+                <line number="33" hits="1"/>
+              </lines>
+            </method>
+            <method name="(anonymous_7)" hits="2" signature="()V">
+              <lines>
+                <line number="37" hits="2"/>
+              </lines>
+            </method>
+            <method name="(anonymous_8)" hits="2" signature="()V">
+              <lines>
+                <line number="42" hits="2"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="1" branch="false"/>
+            <line number="2" hits="1" branch="false"/>
+            <line number="6" hits="2" branch="false"/>
+            <line number="7" hits="2" branch="false"/>
+            <line number="11" hits="2" branch="false"/>
+            <line number="19" hits="2" branch="false"/>
+            <line number="20" hits="2" branch="false"/>
+            <line number="21" hits="0" branch="false"/>
+            <line number="24" hits="2" branch="false"/>
+            <line number="25" hits="1" branch="false"/>
+            <line number="28" hits="2" branch="false"/>
+            <line number="29" hits="0" branch="false"/>
+            <line number="34" hits="1" branch="false"/>
+            <line number="38" hits="2" branch="false"/>
+            <line number="39" hits="2" branch="false"/>
+            <line number="43" hits="2" branch="false"/>
+            <line number="47" hits="1" branch="false"/>
+          </lines>
+        </class>
+        <class name="message-sender.js" filename="server/services/messaging/message-sender.js" line-rate="0.6154" branch-rate="1">
+          <methods>
+            <method name="(anonymous_0)" hits="7" signature="()V">
+              <lines>
+                <line number="4" hits="7"/>
+              </lines>
+            </method>
+            <method name="(anonymous_1)" hits="0" signature="()V">
+              <lines>
+                <line number="9" hits="0"/>
+              </lines>
+            </method>
+            <method name="(anonymous_2)" hits="3" signature="()V">
+              <lines>
+                <line number="17" hits="3"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="7" branch="false"/>
+            <line number="5" hits="7" branch="false"/>
+            <line number="6" hits="7" branch="false"/>
+            <line number="10" hits="0" branch="false"/>
+            <line number="11" hits="0" branch="false"/>
+            <line number="13" hits="0" branch="false"/>
+            <line number="18" hits="3" branch="false"/>
+            <line number="19" hits="3" branch="false"/>
+            <line number="20" hits="3" branch="false"/>
+            <line number="21" hits="3" branch="false"/>
+            <line number="26" hits="0" branch="false"/>
+            <line number="27" hits="0" branch="false"/>
+            <line number="32" hits="7" branch="false"/>
+          </lines>
+        </class>
+        <class name="purge-queue.js" filename="server/services/messaging/purge-queue.js" line-rate="1" branch-rate="1">
+          <methods>
+            <method name="purgeQueue" hits="3" signature="()V">
+              <lines>
+                <line number="3" hits="3"/>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="1" hits="2" branch="false"/>
+            <line number="4" hits="3" branch="false"/>
+            <line number="5" hits="3" branch="false"/>
+            <line number="8" hits="2" branch="false"/>
+          </lines>
+        </class>
+      </classes>
+    </package>
+  </packages>
+</coverage>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="22" failures="0" time="5.834">
+  <testsuite name="Healthy test" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:38" time="2.49" tests="4">
+    <testcase classname="Healthy test GET /healthy returns 200" name="Healthy test GET /healthy returns 200" time="0.404">
+    </testcase>
+    <testcase classname="Healthy test GET /healthy returns 500 if database not connected" name="Healthy test GET /healthy returns 500 if database not connected" time="0.02">
+    </testcase>
+    <testcase classname="Healthy test GET /healthy returns 503 if plan queue not connected" name="Healthy test GET /healthy returns 503 if plan queue not connected" time="0.02">
+    </testcase>
+    <testcase classname="Healthy test GET /healthy returns 503 with appropriate message if all downstream services are disconnected" name="Healthy test GET /healthy returns 503 with appropriate message if all downstream services are disconnected" time="0.02">
+    </testcase>
+  </testsuite>
+  <testsuite name="Web test" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:38" time="2.547" tests="5">
+    <testcase classname="Web test GET / route returns 404" name="Web test GET / route returns 404" time="0.386">
+    </testcase>
+    <testcase classname="Web test GET / route returns 404 for dev mode" name="Web test GET / route returns 404 for dev mode" time="0.021">
+    </testcase>
+    <testcase classname="Web test POST /submit route works with valid content" name="Web test POST /submit route works with valid content" time="0.036">
+    </testcase>
+    <testcase classname="Web test POST /submit route fails with invalid content" name="Web test POST /submit route fails with invalid content" time="0.023">
+    </testcase>
+    <testcase classname="Web test GET /error route returns 500" name="Web test GET /error route returns 500" time="0.038">
+    </testcase>
+  </testsuite>
+  <testsuite name="Test plan repository" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:41" time="0.171" tests="3">
+    <testcase classname="Test plan repository Plan repository loads object from database" name="Test plan repository Plan repository loads object from database" time="0.002">
+    </testcase>
+    <testcase classname="Test plan repository Plan repository creates object in database" name="Test plan repository Plan repository creates object in database" time="0.001">
+    </testcase>
+    <testcase classname="Test plan repository Plan repository handles database failure" name="Test plan repository Plan repository handles database failure" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Test plan service" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:41" time="0.396" tests="3">
+    <testcase classname="Test plan service Plan service create works with new plan" name="Test plan service Plan service create works with new plan" time="0.249">
+    </testcase>
+    <testcase classname="Test plan service Plan service create works with existing plan" name="Test plan service Plan service create works with existing plan" time="0.005">
+    </testcase>
+    <testcase classname="Test plan service Plan service publishes the plan to the message broker" name="Test plan service Plan service publishes the plan to the message broker" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="send message" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:41" time="0.296" tests="1">
+    <testcase classname="send message sends a json message" name="send message sends a json message" time="0.022">
+    </testcase>
+  </testsuite>
+  <testsuite name="Core config" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:41" time="0.13" tests="1">
+    <testcase classname="Core config throws error for invalid port" name="Core config throws error for invalid port" time="0.041">
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Plan model" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:41" time="0.09" tests="1">
+    <testcase classname="Test Plan model plan model is created" name="Test Plan model plan model is created" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Healthz test" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:41" time="0.488" tests="1">
+    <testcase classname="Healthz test GET /healthz returns 200" name="Healthz test GET /healthz returns 200" time="0.18">
+    </testcase>
+  </testsuite>
+  <testsuite name="message service" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:41" time="0.211" tests="1">
+    <testcase classname="message service smoke test" name="message service smoke test" time="0.015">
+    </testcase>
+  </testsuite>
+  <testsuite name="consume message" errors="0" failures="0" skipped="0" timestamp="2020-03-30T13:58:38" time="4" tests="2">
+    <testcase classname="consume message consume a json message" name="consume message consume a json message" time="0.194">
+    </testcase>
+    <testcase classname="consume message message is redelivered after a client error" name="consume message message is redelivered after a client error" time="2.109">
+    </testcase>
+  </testsuite>
+</testsuites>
