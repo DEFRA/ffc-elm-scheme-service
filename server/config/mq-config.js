@@ -3,9 +3,9 @@ const joi = require('@hapi/joi')
 const mqSchema = joi.object({
 
   planCommandQueue: {
-    name: joi.string().default('plan'),
+    name: joi.string().default('plan-command'),
     endpoint: joi.string().default('http://localhost:9324'),
-    queueUrl: joi.string().default('http://localhost:9324/queue/plan'),
+    queueUrl: joi.string().default('http://localhost:9324/queue/plan-command'),
     region: joi.string().default('eu-west-2'),
     accessKeyId: joi.string(),
     secretAccessKey: joi.string(),
@@ -15,13 +15,13 @@ const mqSchema = joi.object({
 
 const mqConfig = {
   planCommandQueue: {
-    name: process.env.PLAN_QUEUE_NAME,
-    endpoint: process.env.PLAN_ENDPOINT,
-    queueUrl: process.env.PLAN_QUEUE_URL,
-    region: process.env.PLAN_QUEUE_REGION,
-    accessKeyId: process.env.PLAN_QUEUE_ACCESS_KEY_ID,
-    secretAccessKey: process.env.PLAN_QUEUE_ACCESS_KEY,
-    createQueue: process.env.CREATE_PLAN_QUEUE
+    accessKeyId: process.env.PLAN_CMD_QUEUE_ACCESS_KEY_ID,
+    createQueue: process.env.PLAN_CMD_QUEUE_CREATE,
+    endpoint: process.env.PLAN_CMD_QUEUE_ENDPOINT,
+    name: process.env.PLAN_CMD_QUEUE_NAME,
+    queueUrl: process.env.PLAN_CMD_QUEUE_URL,
+    region: process.env.PLAN_CMD_QUEUE_REGION,
+    secretAccessKey: process.env.PLAN_CMD_QUEUE_ACCESS_KEY
   }
 }
 

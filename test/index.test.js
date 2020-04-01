@@ -1,19 +1,19 @@
 describe('Web test', () => {
   let createServer
   let server
-  let mockPlanRepository
+  let mockSchemeRepository
 
   beforeAll(async () => {
-    jest.mock('../server/repository/plan-repository')
+    jest.mock('../server/repository/scheme-repository')
     jest.mock('../server/services/message-service')
     createServer = require('../server')
-    mockPlanRepository = require('../server/repository/plan-repository')
+    mockSchemeRepository = require('../server/repository/scheme-repository')
   })
 
   beforeEach(async () => {
     server = await createServer()
     await server.initialize()
-    mockPlanRepository.create.mockClear()
+    mockSchemeRepository.create.mockClear()
   })
 
   test('GET / route returns 404', async () => {
@@ -50,12 +50,12 @@ describe('Web test', () => {
       method: 'POST',
       url: '/submit',
       payload: {
-        planId: 'PLAN123'
+        schemeId: 'SCHEME123'
       }
     }
 
     const response = await server.inject(options)
-    expect(mockPlanRepository.create).toHaveBeenCalledTimes(1)
+    expect(mockSchemeRepository.create).toHaveBeenCalledTimes(1)
     expect(response.statusCode).toBe(200)
   })
 
@@ -67,7 +67,7 @@ describe('Web test', () => {
     }
 
     const response = await server.inject(options)
-    expect(mockPlanRepository.create).toHaveBeenCalledTimes(0)
+    expect(mockSchemeRepository.create).toHaveBeenCalledTimes(0)
     expect(response.statusCode).toBe(400)
   })
 
@@ -82,7 +82,7 @@ describe('Web test', () => {
   })
 
   afterAll(async () => {
-    jest.unmock('../server/repository/plan-repository')
+    jest.unmock('../server/repository/scheme-repository')
     jest.unmock('../server/services/message-service')
   })
 

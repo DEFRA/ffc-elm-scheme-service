@@ -14,7 +14,7 @@ afterAll(async () => {
   await purgeQueue(queueUrl, config.planCommandQueueConfig)
 })
 
-describe('send message', () => {
+describe('Send message', () => {
   test('sends a json message', async () => {
     jest.setTimeout(30000)
     const sender = new MessageSender(config.planCommandQueueConfig, queueUrl)

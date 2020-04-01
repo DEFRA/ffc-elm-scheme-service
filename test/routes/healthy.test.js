@@ -53,7 +53,7 @@ describe('Healthy test', () => {
     expect(response.payload).toBe('database unavailable')
   })
 
-  test('GET /healthy returns 503 if plan queue not connected', async () => {
+  test('GET /healthy returns 503 if plan command queue not connected', async () => {
     const options = {
       method: 'GET',
       url: '/healthy'

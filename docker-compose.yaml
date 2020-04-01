@@ -7,7 +7,7 @@ services:
       target: production
       args:
         REGISTRY: ${DOCKER_REGISTRY:-562955126301.dkr.ecr.eu-west-2.amazonaws.com}
-    image: ffc-elm-plan-service
+    image: ffc-elm-scheme-service
     depends_on:
       - postgres
     env_file:
@@ -16,10 +16,10 @@ services:
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
-      PLAN_ENDPOINT: http://elasticmq:9324
-      PLAN_QUEUE_URL: http://elasticmq:9324/queue/plan-command
-      PLAN_QUEUE_ACCESS_KEY_ID: elasticmq
-      PLAN_QUEUE_ACCESS_KEY: elasticmq
+      PLAN_CMD_QUEUE_ENDPOINT: http://elasticmq:9324
+      PLAN_CMD_QUEUE_URL: http://elasticmq:9324/queue/plan-command
+      PLAN_CMD_QUEUE_ACCESS_KEY_ID: elasticmq
+      PLAN_CMD_QUEUE_ACCESS_KEY: elasticmq
     volumes:
       - ./server/:/home/node/server/
       - ./scripts/:/home/node/scripts/

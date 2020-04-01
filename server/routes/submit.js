@@ -1,5 +1,5 @@
-const schema = require('../schema/plan')
-const planService = require('../services/plan-service')
+const schema = require('../schema/scheme')
+const schemeService = require('../services/scheme-service')
 
 module.exports = {
   method: 'POST',
@@ -13,9 +13,9 @@ module.exports = {
       }
     },
     handler: async (request, h) => {
-      console.log('new plan received')
-      const plan = await planService.create(request.payload)
-      return h.response(plan).code(200)
+      console.log('new scheme received')
+      const scheme = await schemeService.create(request.payload)
+      return h.response(scheme).code(200)
     }
   }
 }

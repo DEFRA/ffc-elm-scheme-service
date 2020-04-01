@@ -17,7 +17,7 @@ services:
     networks:
       ffc-elm:
         aliases:
-          - ffc-elm-plan-service
+          - ffc-elm-scheme-service
       default: {}
     ports:
       - "3003:3003"
