@@ -1,0 +1,7 @@
+persistence:
+  enabled: false
+postgresqlDatabase: elm_schemes
+postgresqlPassword: changeme
+postgresqlUsername: postgres@ffc_elm_schemes
+service:
+  port: 5432
