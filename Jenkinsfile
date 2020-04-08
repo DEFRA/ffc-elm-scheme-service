@@ -14,10 +14,10 @@ def mergedPrNo = ''
 def planCommandQueueName = 'devffc-elm-plan-command-prod'
 def pr = ''
 def prPlanCommandQueueName = 'devffc-elm-plan-command-test'
-def prPostgresDatabaseName = 'ffc_elm_plan'
+def prPostgresDatabaseName = 'ffc_elm_scheme'
 def prPostgresExternalNameCredId = 'ffc-elm-postgres-external-name-pr'
-def prPostgresUserCredId = 'ffc-elm-plan-service-postgres-user-jenkins'
-def serviceName = 'ffc-elm-plan-service'
+def prPostgresUserCredId = 'ffc-elm-postgres-user-jenkins'
+def serviceName = 'ffc-elm-scheme-service'
 def serviceNamespace = 'ffc-elm'
 def sonarQubeEnv = 'SonarQube'
 def sonarScanner = 'SonarScanner'
@@ -118,7 +118,7 @@ node {
             string(credentialsId: 'ffc-elm-sqs-plan-command-access-key-id-write', variable: 'planCommandQueueAccessKeyId'),
             string(credentialsId: 'ffc-elm-sqs-plan-command-access-key-write', variable: 'planCommandQueueSecretAccessKey'),
             string(credentialsId: 'ffc-elm-postgres-external-name-master', variable: 'postgresExternalName'),
-            usernamePassword(credentialsId: 'ffc-elm-plan-service-postgres-user-master', usernameVariable: 'postgresUsername', passwordVariable: 'postgresPassword'),
+            usernamePassword(credentialsId: 'ffc-elm-scheme-service-postgres-user-master', usernameVariable: 'postgresUsername', passwordVariable: 'postgresPassword'),
           ]) {
             def helmValues = [
               /container.redeployOnChange="${BUILD_NUMBER}"/,

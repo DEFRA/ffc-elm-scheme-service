@@ -42,7 +42,7 @@ afterEach(async () => {
   await purgeQueue(queueUrl, config.planCommandQueueConfig)
 })
 
-describe('consume message', () => {
+describe('Consume message', () => {
   jest.setTimeout(15000)
   test('consume a json message', (done) => {
     sender.sendMessage({ greeting: greeting }).then(() => {
@@ -50,7 +50,7 @@ describe('consume message', () => {
       consumer.start()
     })
   })
-  test('message is redelivered after a client error', (done) => {
+  test('Message is redelivered after a client error', (done) => {
     receivedCount = 0
     sender.sendMessage({ greeting: redeliverGreeting }).then(() => {
       consumer = new MessageConsumer(config.planCommandQueueConfig, queueUrl, (message) => messageHandlerErrorOnFirst(message, done))

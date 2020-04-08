@@ -1,9 +1,9 @@
 # environment is the type of environment we're deploying to, e.g. "development" or "production"
 environment: production
 # image is the identifier for the Docker image to use for the main deployment
-image: ffc-elm-plan-service
+image: ffc-elm-scheme-service
 # name is the name to set in metadata for deployed resources
-name: ffc-elm-plan-service
+name: ffc-elm-scheme-service
 # namespace is the namespace to deploy into
 namespace: ffc-elm
 # workstream is the FFC workstream responsible for this deployment, used for rolebindings
@@ -38,14 +38,14 @@ labels:
 
 # postgres collects connection details for interacting with the required Postgres database
 postgres:
-  database: ffc_elm_plan
+  database: ffc_elm_scheme
   # postgres.externalName is the external host name to which PostgreSQL
   # requests should be forwarded. If empty, PostgreSQL is assumed to be
   # within the cluster and accessible at postgres.host
   externalName:
-  host: ffc-elm-plan-postgres
+  host: ffc-elm-scheme-postgres
   password: changeme
-  username: postgres@ffc_elm_plan
+  username: postgres@ffc_elm_scheme
   port: 5432
 
 # probes collects liveness and readiness probe details for this chart's Deployment
@@ -68,11 +68,11 @@ queues:
   planCommandQueue:
     accessKeyId: elasticmq
     create: true
-    endpoint: http://ffc-elm-plan-message-queue:9324
+    endpoint: http://ffc-elm-message-broker:9324
     name: ffc-elm-plan-command
     region: eu-west-2
     secretAccessKey: elasticmq
-    url: http://ffc-elm-plan-message-queue:9324/queue/ffc-elm-plan-command
+    url: http://ffc-elm-message-broker:9324/queue/ffc-elm-plan-command
 
 # service collects options for this chart's main Service template
 service:

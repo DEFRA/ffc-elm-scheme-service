@@ -1,4 +1,6 @@
-node_modules
-npm-debug.log
-Dockerfile
-.dockerignore
+*
+!server/
+!.sequelizerc
+!index.js
+!package-lock.json
+!package.json

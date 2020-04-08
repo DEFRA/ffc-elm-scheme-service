@@ -1,8 +1,8 @@
-[![Known Vulnerabilities](https://snyk.io//test/github/DEFRA/ffc-elm-plan-service/badge.svg?targetFile=package.json)](https://snyk.io//test/github/DEFRA/ffc-elm-plan-service?targetFile=package.json)
+[![Known Vulnerabilities](https://snyk.io//test/github/DEFRA/ffc-elm-scheme-service/badge.svg?targetFile=package.json)](https://snyk.io//test/github/DEFRA/ffc-elm-scheme-service?targetFile=package.json)
 
-# FFC ELM plan service
+# FFC ELM scheme service
 
-Future Farming and Countryside programme ELM plan service. This service is being used to trial event-driven architecture in the context of Environmental Land Management (ELM) delivery.
+Future Farming and Countryside programme ELM scheme service. This service is being used to trial event-driven architecture in the context of Environmental Land Management (ELM) delivery.
 
 ## Prerequisites
 
@@ -21,22 +21,40 @@ Or:
 
 ## Environment variables
 
-The following environment variables are required by the application container. Values for development are set in the Docker Compose configuration. Default values for production-like deployments are set in the Helm chart and may be overridden by build and release pipelines.
+### In development
 
-| Name                     | Description                    | Required | Default                          | Valid                             | Notes                |
-|--------------------------|--------------------------------|:--------:|----------------------------------|:---------------------------------:|----------------------|
-| NODE_ENV                 | Node environment               | no       |                                  | development, test, production     |                      |
-| PORT                     | Port number                    | no       | 3003                             |                                   |                      |
-| POSTGRES_DB              | Postgres database              | yes      |                                  |                                   |                      |
-| POSTGRES_USERNAME        | Postgres username              | yes      |                                  |                                   |                      |
-| POSTGRES_PASSWORD        | Postgres password              | yes      |                                  |                                   |                      |
-| PLAN_QUEUE_NAME          | Message queue name             | no       | plan                             |                                   |                      |
-| PLAN_ENDPOINT            | Message base url               | no       | http://localhost:9324            |                                   |                      |
-| PLAN_QUEUE_URL           | Message queue url              | no       | http://localhost:9324/queue/plan |                                   | or tcp               |
-| PLAN_QUEUE_REGION        | AWS region                     | no       | eu-west-2                        |                                   | Ignored in local dev |
-| PLAN_QUEUE_ACCESS_KEY_ID | Message access key Id          | no       |                                  |                                   |                      |
-| PLAN_QUEUE_ACCESS_KEY    | Message access key             | no       |                                  |                                   |                      |
-| CREATE_PLAN_QUEUE        | Create queue before connection | no       | true                             | Must be false for AWS deployments |                      |
+The following environment variables are required in development environments running via `docker-compose`. They can be added to a `.env` file in the project root, which is listed in `.gitignore` and automatically used by Docker Compose.
+
+| Name            | Description                                  |
+|-----------------|----------------------------------------------|
+| DOCKER_REGISTRY | Docker registry URL to pull base images from |
+
+Example `.env` file:
+
+```
+DOCKER_REGISTRY=registry.example.com
+```
+
+### In production
+
+The following environment variables are required by the application container. Default values for production-like deployments are set in the Helm chart and may be overridden by build and release pipelines.
+
+| Name                         | Description                    | Required | Default                          | Valid                             | Notes                |
+|----------------------------------|--------------------------------|:--------:|----------------------------------|:---------------------------------:|----------------------|
+| NODE_ENV                     | Node environment               | no       |                                          | development, test, production     |                      |
+| PLAN_CMD_QUEUE_ACCESS_KEY    | Message access key             | no       |                                          |                                   |                      |
+| PLAN_CMD_QUEUE_ACCESS_KEY_ID | Message access key Id          | no       |                                          |                                   |                      |
+| PLAN_CMD_QUEUE_CREATE        | Create queue before connection | no       | true                                     | Must be false for AWS deployments |                      |
+| PLAN_CMD_QUEUE_ENDPOINT      | Message base url               | no       | http://localhost:9324                    |                                   |                      |
+| PLAN_CMD_QUEUE_NAME          | Message queue name             | no       | plan-command                             |                                   |                      |
+| PLAN_CMD_QUEUE_REGION        | AWS region                     | no       | eu-west-2                                |                                   | Ignored in local dev |
+| PLAN_CMD_QUEUE_URL           | Message queue url              | no       | http://localhost:9324/queue/plan-command |                                   | or tcp               |
+| PORT                         | Port number                    | no       | 3003                                     |                                   |                      |
+| POSTGRES_DB                  | Postgres database              | yes      |                                          |                                   |                      |
+| POSTGRES_HOST                | Postgres host                  | yes      |                                          |                                   |                      |
+| POSTGRES_PASSWORD            | Postgres password              | yes      |                                          |                                   |                      |
+| POSTGRES_PORT                | Postgres port                  | yes      |                                          |                                   |                      |
+| POSTGRES_USERNAME            | Postgres username              | yes      |                                          |                                   |                      |
 
 ## How to run tests
 
@@ -122,7 +140,7 @@ Sample valid JSON for the `/submit` endpoint is:
 
 ### Deploy to Kubernetes
 
-For production deployments, a helm chart is included in the `.\helm` folder. This service connects to an sqs message broker, using credentials defined in [values.yaml](./helm/ffc-elm-plan-service/values.yaml), which must be made available prior to deployment.
+For production deployments, a helm chart is included in the `.\helm` folder. This service connects to an sqs message broker, using credentials defined in [values.yaml](./helm/ffc-elm-scheme-service/values.yaml), which must be made available prior to deployment.
 
 Scripts are provided to test the Helm chart by deploying the service, along with an appropriate message broker, into the current Helm/Kubernetes context.
 
@@ -142,7 +160,7 @@ Access may be granted by forwarding a local port to the deployed pod:
 
 ```
 # Forward local port to the Kubernetes deployment
-kubectl port-forward --namespace=ffc-demo deployment/ffc-elm-plan-service 3003:3003
+kubectl port-forward --namespace=ffc-demo deployment/ffc-elm-scheme-service 3003:3003
 ```
 
 Once the port is forwarded, the service can be accessed and tested in the same way as described in the "Test the service" section above.
@@ -182,7 +200,7 @@ The [azure-pipelines.yaml](azure-pipelines.yaml) performs the following tasks:
 - Pushes containers to the registry tagged with the PR number or release version
 - Deletes PR deployments, containers, and namepace upon merge
 
-Builds will be deployed into a namespace with the format `ffc-elm-plan-service-{identifier}` where `{identifier}` is either the release version, the PR number, or the branch name.
+Builds will be deployed into a namespace with the format `ffc-elm-scheme-service-{identifier}` where `{identifier}` is either the release version, the PR number, or the branch name.
 
 A detailed description on the build pipeline and PR work flow is available in the [Defra Confluence page](https://eaflood.atlassian.net/wiki/spaces/FFCPD/pages/1281359920/Build+Pipeline+and+PR+Workflow)
 

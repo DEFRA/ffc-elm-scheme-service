@@ -10,10 +10,10 @@ async function createQueuesIfRequired () {
   }
 }
 
-async function publishPlan (plan) {
+async function publishScheme (scheme) {
   try {
     await Promise.all([
-      planCommandSender.sendMessage(plan)
+      planCommandSender.sendMessage(scheme)
     ])
   } catch (err) {
     console.log(err)
@@ -22,6 +22,6 @@ async function publishPlan (plan) {
 }
 
 module.exports = {
-  publishPlan,
+  publishScheme,
   createQueuesIfRequired
 }
