@@ -7,6 +7,10 @@ metadata:
 spec:
   minReadySeconds: {{ .Values.deployment.minReadySeconds }}
   replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ quote .Values.name }}
+      app.kubernetes.io/name: {{ quote .Values.name }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
