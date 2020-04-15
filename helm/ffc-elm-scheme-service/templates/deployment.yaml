@@ -9,7 +9,7 @@ spec:
   replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
-      app: {{ quote .Values.name }}
+      app: {{ quote .Values.namespace }}
       app.kubernetes.io/name: {{ quote .Values.name }}
   strategy:
     type: RollingUpdate
