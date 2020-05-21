@@ -7,9 +7,9 @@ const mqSchema = joi.object({
     endpoint: joi.string().default('http://localhost:9324'),
     queueUrl: joi.string().default('http://localhost:9324/queue/plan-command'),
     region: joi.string().default('eu-west-2'),
-    accessKeyId: joi.string(),
-    secretAccessKey: joi.string(),
-    createQueue: joi.bool().default(true)
+    accessKeyId: joi.string().optional(),
+    secretAccessKey: joi.string().optional(),
+    createQueue: joi.bool().default(false)
   }
 })
 
@@ -37,5 +37,5 @@ if (mqResult.error) {
 const planCommandQueueConfig = { ...mqResult.value.messageQueue, ...mqResult.value.planCommandQueue }
 
 module.exports = {
-  planCommandQueueConfig: planCommandQueueConfig
+  planCommandQueueConfig
 }

@@ -6,7 +6,13 @@ const planCommandSender = new MessageSender(config.planCommandQueueConfig, confi
 
 async function createQueuesIfRequired () {
   if (config.planCommandQueueConfig.createQueue) {
-    await createQueue(config.planCommandQueueConfig.name, config.planCommandQueueConfig)
+    console.info('Creating Plan Command queue.')
+    try {
+      await createQueue(config.planCommandQueueConfig.name, config.planCommandQueueConfig)
+    } catch (error) {
+      console.error(`Failed to create Plan Command queue. Error: ${error}`)
+      throw error
+    }
   }
 }
 
@@ -16,12 +22,17 @@ async function publishScheme (scheme) {
       planCommandSender.sendMessage(scheme)
     ])
   } catch (err) {
-    console.log(err)
+    console.error(err)
     throw err
   }
 }
 
+async function closeConnections () {
+  // Nothing to do here as we have no consumers
+}
+
 module.exports = {
-  publishScheme,
-  createQueuesIfRequired
+  closeConnections,
+  createQueuesIfRequired,
+  publishScheme
 }

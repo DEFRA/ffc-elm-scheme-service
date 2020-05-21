@@ -11,12 +11,13 @@ def dockerTestService = 'app'
 def lcovFile = './test-output/lcov.info'
 def localSrcFolder = '.'
 def mergedPrNo = ''
-def planCommandQueueName = 'devffc-elm-plan-command-prod'
+def planCommandQueueName = 'devffc-elm-plan-command-dev'
 def pr = ''
-def prPlanCommandQueueName = 'devffc-elm-plan-command-test'
+def prPlanCommandQueueName = 'plan-command'
 def prPostgresDatabaseName = 'ffc_elm_scheme'
 def prPostgresExternalNameCredId = 'ffc-elm-postgres-external-name-pr'
 def prPostgresUserCredId = 'ffc-elm-postgres-user-jenkins'
+def prSqsQueuePrefix = 'devffc-elm-scheme-service'
 def serviceName = 'ffc-elm-scheme-service'
 def serviceNamespace = 'ffc-elm'
 def sonarQubeEnv = 'SonarQube'
@@ -31,6 +32,11 @@ node {
     }
     stage('Set branch, PR, and containerTag variables') {
       (pr, containerTag, mergedPrNo) = defraUtils.getVariables(serviceName, defraUtils.getPackageJsonVersion())
+    }
+    if (pr != '') {
+      stage('Verify version incremented') {
+        defraUtils.verifyPackageJsonVersionIncremented()
+      }
     }
     stage('Helm lint') {
       defraUtils.lintHelm(serviceName)
@@ -57,32 +63,28 @@ node {
       defraUtils.buildAndPushContainerImage(DOCKER_REGISTRY_CREDENTIALS_ID, DOCKER_REGISTRY, serviceName, containerTag)
     }
     if (pr != '') {
-      stage('Verify version incremented') {
-        defraUtils.verifyPackageJsonVersionIncremented()
-      }
       stage('Provision PR infrastructure') {
         defraUtils.provisionPrDatabaseRoleAndSchema(prPostgresExternalNameCredId, prPostgresDatabaseName, prPostgresUserCredId, 'ffc-elm-plan-service-postgres-user-pr', pr, true)
+        defraUtils.provisionPrSqsQueue(prSqsQueuePrefix, pr, prPlanCommandQueueName, "ELM", "ELM", "Environmental Land Management")
       }
       stage('Helm install') {
         withCredentials([
+          string(credentialsId: 'ffc-elm-scheme-service-role-arn', variable: 'serviceAccountRoleArn'),
           string(credentialsId: 'ffc-elm-sqs-plan-command-queue-endpoint-pr', variable: 'planCommandQueueEndpoint'),
-          string(credentialsId: 'ffc-elm-sqs-plan-command-access-key-id-write', variable: 'planCommandQueueAccessKeyId'),
-          string(credentialsId: 'ffc-elm-sqs-plan-command-access-key-write', variable: 'planCommandQueueSecretAccessKey'),
           string(credentialsId: prPostgresExternalNameCredId, variable: 'postgresExternalName'),
           usernamePassword(credentialsId: prPostgresUserCredId, usernameVariable: 'postgresUsername', passwordVariable: 'postgresPassword')
         ]) {
           def helmValues = [
-            /container.redeployOnChange="${pr}-${BUILD_NUMBER}"/,
+            /deployment.redeployOnChange="${pr}-${BUILD_NUMBER}"/,
             /labels.version="${containerTag}"/,
             /postgres.externalName="${postgresExternalName}"/,
             /postgres.password="${postgresPassword}"/,
             /postgres.username="${postgresUsername}"/,
-            /queues.planCommandQueue.accessKeyId="${planCommandQueueAccessKeyId}"/,
-            /queues.planCommandQueue.create="false"/,
             /queues.planCommandQueue.endpoint="${planCommandQueueEndpoint}"/,
-            /queues.planCommandQueue.name="${serviceName}-pr${pr}-${prPlanCommandQueueName}"/,
-            /queues.planCommandQueue.secretAccessKey="${planCommandQueueSecretAccessKey}"/,
-            /queues.planCommandQueue.url="${planCommandQueueEndpoint}\/${prPlanCommandQueueName}"/
+            /queues.planCommandQueue.name="${prSqsQueuePrefix}-pr${pr}-${prPlanCommandQueueName}"/,
+            /queues.planCommandQueue.url="${planCommandQueueEndpoint}\/${prSqsQueuePrefix}-pr${pr}-${prPlanCommandQueueName}"/,
+            /serviceAccount.enabled="true"/,
+            /serviceAccount.roleArn="$serviceAccountRoleArn"/
           ].join(',')
 
           def extraCommands = [
@@ -107,23 +109,21 @@ node {
       stage('Deploy master') {
         withCredentials([
           string(credentialsId: 'ffc-elm-sqs-plan-command-queue-endpoint-master', variable: 'planCommandQueueEndpoint'),
-          string(credentialsId: 'ffc-elm-sqs-plan-command-access-key-id-write', variable: 'planCommandQueueAccessKeyId'),
-          string(credentialsId: 'ffc-elm-sqs-plan-command-access-key-write', variable: 'planCommandQueueSecretAccessKey'),
+          string(credentialsId: 'ffc-elm-scheme-service-role-arn', variable: 'serviceAccountRoleArn'),
           string(credentialsId: 'ffc-elm-postgres-external-name-master', variable: 'postgresExternalName'),
           usernamePassword(credentialsId: 'ffc-elm-scheme-service-postgres-user-master', usernameVariable: 'postgresUsername', passwordVariable: 'postgresPassword'),
         ]) {
           def helmValues = [
-            /container.redeployOnChange="${BUILD_NUMBER}"/,
+            /deployment.redeployOnChange="${BUILD_NUMBER}"/,
             /labels.version="${containerTag}"/,
             /postgres.externalName="${postgresExternalName}"/,
             /postgres.password="${postgresPassword}"/,
             /postgres.username="${postgresUsername}"/,
-            /queues.planCommandQueue.accessKeyId="${planCommandQueueAccessKeyId}"/,
-            /queues.planCommandQueue.create="false"/,
             /queues.planCommandQueue.endpoint="${planCommandQueueEndpoint}"/,
             /queues.planCommandQueue.name="${planCommandQueueName}"/,
-            /queues.planCommandQueue.secretAccessKey="${planCommandQueueSecretAccessKey}"/,
-            /queues.planCommandQueue.url="${planCommandQueueEndpoint}\/${planCommandQueueName}"/
+            /queues.planCommandQueue.url="${planCommandQueueEndpoint}\/${planCommandQueueName}"/,
+            /serviceAccount.enabled="true"/,
+            /serviceAccount.roleArn="$serviceAccountRoleArn"/
           ].join(',')
 
           def extraCommands = [
@@ -140,6 +140,8 @@ node {
       }
       stage('Remove PR infrastructure') {
         defraUtils.destroyPrDatabaseRoleAndSchema(prPostgresExternalNameCredId, prPostgresDatabaseName, prPostgresUserCredId, pr)
+        defraUtils.destroyPrSqsQueues(prSqsQueuePrefix, pr)
+
       }
     }
     stage('Set GitHub status as success'){
