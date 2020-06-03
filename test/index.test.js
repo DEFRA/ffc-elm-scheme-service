@@ -1,92 +1,50 @@
-describe('Web test', () => {
-  let createServer
-  let server
-  let mockSchemeRepository
+describe('createServer', () => {
+  const createServer = require('../server')
+  const messageService = require('../server/services/message-service')
+  const shutdown = require('../server/shutdown')
 
-  beforeAll(async () => {
-    jest.mock('../server/repository/scheme-repository')
-    jest.mock('../server/services/message-service')
-    createServer = require('../server')
-    mockSchemeRepository = require('../server/repository/scheme-repository')
-  })
+  jest.mock('../server/repository/scheme-repository')
+  jest.mock('../server/services/message-service')
+  jest.mock('../server/shutdown')
 
   beforeEach(async () => {
-    server = await createServer()
-    await server.initialize()
-    mockSchemeRepository.create.mockClear()
+    jest.spyOn(messageService, 'createQueuesIfRequired').mockImplementation()
+    jest.spyOn(process, 'on')
+    shutdown.mockImplementation()
   })
 
-  test('GET / route returns 404', async () => {
-    const options = {
-      method: 'GET',
-      url: '/'
-    }
-
-    const response = await server.inject(options)
-    expect(response.statusCode).toBe(404)
-    expect((response.headers['content-type'])).toEqual(expect.stringContaining('application/json'))
+  afterEach(() => {
+    jest.restoreAllMocks()
+    process.removeAllListeners('SIGINT')
+    process.removeAllListeners('SIGTERM')
   })
 
-  test('GET / route returns 404 for dev mode', async () => {
-    const options = {
-      method: 'GET',
-      url: '/'
-    }
-    jest.mock('../server/config', () => {
-      return {
-        isDev: true,
-        port: 80
-      }
+  test('returns a server', async () => {
+    const server = await createServer()
+    expect(server).toBeDefined()
+  })
+
+  test('sets up graceful shutdown for SIGINT and SIGTERM signals', async () => {
+    process.on.mockImplementation(async (signal, callback) => {
+      // Check the signal handler being registered is for an expected signal
+      expect(signal).toMatch(/^(SIGINT|SIGTERM)$/)
+      expect(typeof callback).toBe('function')
+
+      // Check the provided callback triggers a graceful shutdown correctly
+      callback()
+      expect(shutdown).toHaveBeenCalledWith(`received ${signal}.`)
     })
 
-    const response = await server.inject(options)
-    expect(response.statusCode).toBe(404)
-    expect((response.headers['content-type'])).toEqual(expect.stringContaining('application/json'))
-    jest.unmock('../server/config')
+    await createServer()
+
+    // Ensure signal handlers were created for both SIGINT and SIGTERM
+    expect(process.on).toHaveBeenCalledWith('SIGINT', expect.anything())
+    expect(process.on).toHaveBeenCalledWith('SIGTERM', expect.anything())
   })
 
-  test('POST /submit route works with valid content', async () => {
-    const options = {
-      method: 'POST',
-      url: '/submit',
-      payload: {
-        schemeId: 'SCHEME123'
-      }
-    }
-
-    const response = await server.inject(options)
-    expect(mockSchemeRepository.create).toHaveBeenCalledTimes(1)
-    expect(response.statusCode).toBe(200)
-  })
-
-  test('POST /submit route fails with invalid content', async () => {
-    const options = {
-      method: 'POST',
-      url: '/submit',
-      payload: { }
-    }
-
-    const response = await server.inject(options)
-    expect(mockSchemeRepository.create).toHaveBeenCalledTimes(0)
-    expect(response.statusCode).toBe(400)
-  })
-
-  test('GET /error route returns 500', async () => {
-    const options = {
-      method: 'GET',
-      url: '/error'
-    }
-
-    const response = await server.inject(options)
-    expect(response.statusCode).toBe(500)
-  })
-
-  afterAll(async () => {
-    jest.unmock('../server/repository/scheme-repository')
-    jest.unmock('../server/services/message-service')
-  })
-
-  afterEach(async () => {
-    await server.stop()
+  test('creates message queues', async (done) => {
+    await createServer()
+    expect(messageService.createQueuesIfRequired).toHaveBeenCalled()
+    done()
   })
 })

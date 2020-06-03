@@ -24,6 +24,13 @@ spec:
         redeployOnChange: {{ quote .Values.deployment.redeployOnChange }}
     spec:
       priorityClassName: {{ quote .Values.deployment.priorityClassName }}
+      {{- if .Values.serviceAccount.enabled }}
+      securityContext:
+        fsGroup: {{ .Values.deployment.runAsUser }}
+        runAsUser: {{ .Values.deployment.runAsUser }}
+        runAsNonRoot: {{ .Values.deployment.runAsNonRoot }}
+      serviceAccountName: {{ quote .Values.serviceAccount.name }}
+      {{- end }}
       restartPolicy: {{ quote .Values.deployment.restartPolicy }}
       {{- if .Values.deployment.imagePullSecret }}
       imagePullSecrets:
@@ -44,8 +51,6 @@ spec:
         {{- end }}
           imagePullPolicy: {{ quote .Values.deployment.imagePullPolicy }}
           securityContext:
-            runAsUser: {{ .Values.deployment.runAsUser }}
-            runAsNonRoot: {{ .Values.deployment.runAsNonRoot }}
             readOnlyRootFilesystem: {{ .Values.deployment.readOnlyRootFilesystem }}
             allowPrivilegeEscalation: {{ .Values.deployment.allowPrivilegeEscalation }}
           ports:
@@ -62,10 +67,6 @@ spec:
           env:
             - name: NODE_ENV
               value: {{ quote .Values.environment }}
-            - name: PLAN_CMD_QUEUE_ACCESS_KEY
-              value: {{ quote .Values.queues.planCommandQueue.secretAccessKey }}
-            - name: PLAN_CMD_QUEUE_ACCESS_KEY_ID
-              value: {{ quote .Values.queues.planCommandQueue.accessKeyId }}
             - name: PLAN_CMD_QUEUE_CREATE
               value: {{ quote .Values.queues.planCommandQueue.create }}
             - name: PLAN_CMD_QUEUE_ENDPOINT

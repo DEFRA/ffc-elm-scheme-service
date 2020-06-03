@@ -39,11 +39,9 @@ DOCKER_REGISTRY=registry.example.com
 
 The following environment variables are required by the application container. Default values for production-like deployments are set in the Helm chart and may be overridden by build and release pipelines.
 
-| Name                         | Description                    | Required | Default                          | Valid                             | Notes                |
-|----------------------------------|--------------------------------|:--------:|----------------------------------|:---------------------------------:|----------------------|
+| Name                         | Description                    | Required | Default                                  | Valid                             | Notes                |
+|------------------------------|--------------------------------|:--------:|------------------------------------------|:---------------------------------:|----------------------|
 | NODE_ENV                     | Node environment               | no       |                                          | development, test, production     |                      |
-| PLAN_CMD_QUEUE_ACCESS_KEY    | Message access key             | no       |                                          |                                   |                      |
-| PLAN_CMD_QUEUE_ACCESS_KEY_ID | Message access key Id          | no       |                                          |                                   |                      |
 | PLAN_CMD_QUEUE_CREATE        | Create queue before connection | no       | true                                     | Must be false for AWS deployments |                      |
 | PLAN_CMD_QUEUE_ENDPOINT      | Message base url               | no       | http://localhost:9324                    |                                   |                      |
 | PLAN_CMD_QUEUE_NAME          | Message queue name             | no       | plan-command                             |                                   |                      |
@@ -127,14 +125,14 @@ The service binds to a port on the host machine so it can be tested manually by 
 
 ```
 # Send a sample request to the /submit endpoint
-wget -qO- --header "Content-Type: application/json" --post-data '{"planId":"PLAN123"}' http://localhost:3003/submit
+wget -qO- --header "Content-Type: application/json" --post-data '{"schemeId":"SCHEME123"}' http://localhost:3003/submit
 ```
 
 Sample valid JSON for the `/submit` endpoint is:
 
 ```
 {
-  "planId": "PLAN123"
+  "schemeId": "SCHEME123"
 }
 ```
 
@@ -160,7 +158,7 @@ Access may be granted by forwarding a local port to the deployed pod:
 
 ```
 # Forward local port to the Kubernetes deployment
-kubectl port-forward --namespace=ffc-demo deployment/ffc-elm-scheme-service 3003:3003
+kubectl port-forward --namespace=ffc-elm deployment/ffc-elm-scheme-service 3003:3003
 ```
 
 Once the port is forwarded, the service can be accessed and tested in the same way as described in the "Test the service" section above.
