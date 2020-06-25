@@ -1,0 +1,15 @@
+{{- include "ffc-helm-library.container-config-map" (list . "ffc-elm-scheme-service.config-map") -}}
+{{- define "ffc-elm-scheme-service.config-map" -}}
+data:
+  NODE_ENV: {{ quote .Values.environment }}
+  PLAN_CMD_QUEUE_CREATE: {{ quote .Values.queues.planCommandQueue.create }}
+  PLAN_CMD_QUEUE_NAME: {{ quote .Values.queues.planCommandQueue.name }}
+  PLAN_CMD_QUEUE_ENDPOINT: {{ quote .Values.queues.planCommandQueue.endpoint }}
+  PLAN_CMD_QUEUE_URL: {{ quote .Values.queues.planCommandQueue.url }}
+  PLAN_CMD_QUEUE_REGION: {{ quote .Values.queues.planCommandQueue.region }}
+  PORT: {{ quote .Values.container.port }}
+  POSTGRES_USERNAME: {{ quote .Values.postgresService.postgresUsername }}
+  POSTGRES_DB: {{ quote .Values.postgresService.postgresDatabase }}
+  POSTGRES_HOST: {{ quote .Values.postgresService.postgresHost }}
+  POSTGRES_PORT: {{ quote .Values.postgresService.postgresPort }}
+{{- end -}}

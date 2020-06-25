@@ -9,53 +9,65 @@ namespace: ffc-elm
 # workstream is the FFC workstream responsible for this deployment, used for rolebindings
 workstream: ffc-elm
 
-# deployment collects options for this chart's Deployment template
-deployment:
+# container collects options for the app container controlled by the deployment
+container:
   allowPrivilegeEscalation: false
   args: ["npm --no-update-notifier run migrate && node index"]
   command: ["/bin/sh","-c"]
   imagePullPolicy: Always
   limitCpu: 120m
   limitMemory: 120Mi
-  maxSurge: 1
-  maxUnavailable: 1
-  minReadySeconds: 10
-  priorityClassName: low
+  port: 3003
   readOnlyRootFilesystem: true
-  redeployOnChange: update this field to force a change
-  replicaCount: 1
   requestMemory: 60Mi
   requestCpu: 60m
+
+# containerConfigMap collects options for the ConfigMap that should be mounted into the container
+containerConfigMap:
+  name: ffc-elm-scheme-service-config-map
+
+# containerSecret collects options for the Secret that should be mounted into the container
+containerSecret:
+  name: ffc-elm-scheme-service-container-secret
+  type: Opaque
+
+# deployment collects options for this chart's Deployment template
+deployment:
+  minReadySeconds: 10
+  priorityClassName: low
+  redeployOnChange: update this field to force a change
+  replicas: 1
   restartPolicy: Always
   runAsNonRoot: true
   runAsUser: 1000
 
 # labels collects values for some standard labels to apply to deployed resources
 labels:
-  component: service
-  instance: ""
-  version: 1.0.0
+  component: scheme-service
 
 # postgres collects connection details for interacting with the required Postgres database
-postgres:
-  database: ffc_elm_scheme
-  # postgres.externalName is the external host name to which PostgreSQL
+postgresService:
+  postgresDatabase: ffc_elm_scheme
+  # postgresService.postgresExternalName is the external host name to which PostgreSQL
   # requests should be forwarded. If empty, PostgreSQL is assumed to be
-  # within the cluster and accessible at postgres.host
-  externalName:
-  host: ffc-elm-scheme-postgres
-  password: changeme
-  username: postgres@ffc_elm_scheme
-  port: 5432
+  # within the cluster and accessible at postgresService.postgresHost
+  postgresExternalName:
+  postgresHost: ffc-elm-scheme-postgres
+  postgresPassword: changeme
+  postgresUsername: postgres@ffc_elm_scheme
+  postgresPort: 5432
 
-# probes collects liveness and readiness probe details for this chart's Deployment
+# probes collects configuration for application health probes
 probes:
+  # livenessProbe define's the check for this deployment being live
   livenessProbe:
     path: /healthz
     port: 3003
     initialDelaySeconds: 10
     periodSeconds: 10
     failureThreshold: 3
+
+  # readinessProbe define's the check for this deployment being ready to receive requests
   readinessProbe:
     path: /healthy
     port: 3003
@@ -67,18 +79,12 @@ probes:
 queues:
   planCommandQueue:
     create: false
-    endpoint: http://ffc-elm-message-broker:9324
+    endpoint: http://ffc-elm-scheme-message-broker:9324
     name: ffc-elm-plan-command
     region: eu-west-2
-    url: http://ffc-elm-message-broker:9324/queue/ffc-elm-plan-command
-
-# service collects options for this chart's main Service template
-service:
-  type: ClusterIP
-  port: 80
+    url: http://ffc-elm-scheme-message-broker:9324/queue/ffc-elm-plan-command
 
 # serviceAccount collects options for the ServiceAccount resource
 serviceAccount:
-  enabled: false
   name: ffc-elm-scheme-service-account
   roleArn:
