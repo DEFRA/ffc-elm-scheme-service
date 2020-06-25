@@ -64,7 +64,7 @@ node {
     }
     if (pr != '') {
       stage('Provision PR infrastructure') {
-        defraUtils.provisionPrDatabaseRoleAndSchema(prPostgresExternalNameCredId, prPostgresDatabaseName, prPostgresUserCredId, 'ffc-elm-plan-service-postgres-user-pr', pr, true)
+        defraUtils.provisionPrDatabaseRoleAndSchema(prPostgresExternalNameCredId, prPostgresDatabaseName, prPostgresUserCredId, 'ffc-elm-scheme-service-postgres-user-pr', pr, true)
         defraUtils.provisionPrSqsQueue(prSqsQueuePrefix, pr, prPlanCommandQueueName, "ELM", "ELM", "Environmental Land Management")
       }
       stage('Helm install') {
