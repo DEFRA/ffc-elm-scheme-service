@@ -16,7 +16,7 @@ def pr = ''
 def prPlanCommandQueueName = 'plan-command'
 def prPostgresDatabaseName = 'ffc_elm_scheme'
 def prPostgresExternalNameCredId = 'ffc-elm-postgres-external-name-pr'
-def prPostgresUserCredId = 'ffc-elm-postgres-user-jenkins'
+def prPostgresUserCredId = 'ffc-elm-scheme-service-postgres-user-jenkins'
 def prSqsQueuePrefix = 'devffc-elm-scheme-service'
 def serviceName = 'ffc-elm-scheme-service'
 def serviceNamespace = 'ffc-elm'
@@ -77,9 +77,9 @@ node {
           def helmValues = [
             /deployment.redeployOnChange="${pr}-${BUILD_NUMBER}"/,
             /labels.version="${containerTag}"/,
-            /postgres.externalName="${postgresExternalName}"/,
-            /postgres.password="${postgresPassword}"/,
-            /postgres.username="${postgresUsername}"/,
+            /postgresService.postgresExternalName="${postgresExternalName}"/,
+            /postgresService.postgresPassword="${postgresPassword}"/,
+            /postgresService.postgresUsername="${postgresUsername}"/,
             /queues.planCommandQueue.endpoint="${planCommandQueueEndpoint}"/,
             /queues.planCommandQueue.name="${prSqsQueuePrefix}-pr${pr}-${prPlanCommandQueueName}"/,
             /queues.planCommandQueue.url="${planCommandQueueEndpoint}\/${prSqsQueuePrefix}-pr${pr}-${prPlanCommandQueueName}"/,
@@ -109,16 +109,16 @@ node {
       stage('Deploy master') {
         withCredentials([
           string(credentialsId: 'ffc-elm-sqs-plan-command-queue-endpoint-master', variable: 'planCommandQueueEndpoint'),
-          string(credentialsId: 'ffc-elm-scheme-service-role-arn', variable: 'serviceAccountRoleArn'),
           string(credentialsId: 'ffc-elm-postgres-external-name-master', variable: 'postgresExternalName'),
+          string(credentialsId: 'ffc-elm-scheme-service-role-arn', variable: 'serviceAccountRoleArn'),
           usernamePassword(credentialsId: 'ffc-elm-scheme-service-postgres-user-master', usernameVariable: 'postgresUsername', passwordVariable: 'postgresPassword'),
         ]) {
           def helmValues = [
             /deployment.redeployOnChange="${BUILD_NUMBER}"/,
             /labels.version="${containerTag}"/,
-            /postgres.externalName="${postgresExternalName}"/,
-            /postgres.password="${postgresPassword}"/,
-            /postgres.username="${postgresUsername}"/,
+            /postgresService.postgresExternalName="${postgresExternalName}"/,
+            /postgresService.postgresPassword="${postgresPassword}"/,
+            /postgresService.postgresUsername="${postgresUsername}"/,
             /queues.planCommandQueue.endpoint="${planCommandQueueEndpoint}"/,
             /queues.planCommandQueue.name="${planCommandQueueName}"/,
             /queues.planCommandQueue.url="${planCommandQueueEndpoint}\/${planCommandQueueName}"/,
@@ -141,7 +141,6 @@ node {
       stage('Remove PR infrastructure') {
         defraUtils.destroyPrDatabaseRoleAndSchema(prPostgresExternalNameCredId, prPostgresDatabaseName, prPostgresUserCredId, pr)
         defraUtils.destroyPrSqsQueues(prSqsQueuePrefix, pr)
-
       }
     }
     stage('Set GitHub status as success'){
